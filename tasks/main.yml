@@ -24,7 +24,7 @@
   sudo: yes
   sudo_user: "{{ rtorrent_user }}"
   file:
-    path: "{{ items }}"
+    path: "{{ item }}"
     state: directory
     with_items:
       - "{{ rtorrent_home }}/downloading"

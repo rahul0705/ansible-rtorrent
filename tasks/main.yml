@@ -27,10 +27,10 @@
     path: {{ items }}
     state: directory
     with_items:
-      - {{ rtorrent_home }}/downloading
-      - {{ rtorrent_home }}/session
-      - {{ rtorrent_home }}/watch
-      - {{ rtorrent_home }}/complete
+      - "{{ rtorrent_home }}/downloading"
+      - "{{ rtorrent_home }}/session"
+      - "{{ rtorrent_home }}/watch"
+      - "{{ rtorrent_home }}/complete"
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_home }}/.rtorrent.rc"

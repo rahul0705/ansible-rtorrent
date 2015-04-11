@@ -1,2 +1,31 @@
----
-# Empty for now
+- name: install rtorrent
+  sudo: yes
+  apt:
+    name: rtorrent
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: add rtorrent group
+  sudo: yes
+  group:
+    name: "{{ rtorrent_group }}"
+
+- name: add rtorrent user
+  sudo: yes
+  user:
+    name: "{{ rtorrent_user }}"
+    group: "{{ rtorrent_group }}"
+    comment: "rtorrent user"
+    home: /home/rtorrent
+    shell: /bin/bash
+
+- name: configure rtorrent
+  sudo: yes
+  sudo_user: rtorrent
+  template:
+    src: rtorrent.rc.j2
+    dest: "{{ rtorrent_home }}/.rtorrent.rc"
+    owner: "{{ rtorrent_user }}"
+    group: "{{ rtorrent_group }}"
+    mode: 0644

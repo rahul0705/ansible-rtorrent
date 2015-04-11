@@ -20,9 +20,9 @@
     home: "{{ rtorrent_home }}"
     shell: /bin/bash
 
-- name: configure rtorrent
+- name: create rtorrent directories
   sudo: yes
-  sudo_user: rtorrent
+  sudo_user: "{{ rtorrent_user }}"
   file:
     path: "{{ items }}"
     state: directory
@@ -31,6 +31,10 @@
       - "{{ rtorrent_home }}/session"
       - "{{ rtorrent_home }}/watch"
       - "{{ rtorrent_home }}/complete"
+
+- name: configure rtorrent
+  sudo: yes
+  sudo_user: "{{ rtorrent_user }}"
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_home }}/.rtorrent.rc"

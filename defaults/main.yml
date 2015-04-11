@@ -1,2 +1,5 @@
 ---
 # Empty for now
+rtorrent_user: rtorrent
+rtorrent_group: rtorrent
+rtorrent_home: /home/{{ rtorrent_user }}

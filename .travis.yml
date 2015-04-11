@@ -18,4 +18,9 @@ script:
   # Test for Idempotence
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
   # Test for Succuss
+  - cat /home/rtorrent/.rtorrent.rc > /dev/null
   - rtorrent -h > /dev/null
+  - ls /home/rtorrent/downloading > /dev/null
+  - ls /home/rtorrent/session > /dev/null
+  - ls /home/rtorrent/watch > /dev/null
+  - ls /home/rtorrent/complete > /dev/null

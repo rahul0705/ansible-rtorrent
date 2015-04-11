@@ -6,23 +6,31 @@
     update_cache: yes
     cache_valid_time: 3600
 
-- name: add rtorrent group
+- name: create rtorrent group
   sudo: yes
   group:
     name: "{{ rtorrent_group }}"
 
-- name: add rtorrent user
+- name: create rtorrent user
   sudo: yes
   user:
     name: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
     comment: "rtorrent user"
-    home: /home/rtorrent
+    home: "{{ rtorrent_home }}"
     shell: /bin/bash
 
 - name: configure rtorrent
   sudo: yes
   sudo_user: rtorrent
+  file:
+    path: {{ items }}
+    state: directory
+    with_items:
+      - {{ rtorrent_home }}/downloading
+      - {{ rtorrent_home }}/session
+      - {{ rtorrent_home }}/watch
+      - {{ rtorrent_home }}/complete
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_home }}/.rtorrent.rc"

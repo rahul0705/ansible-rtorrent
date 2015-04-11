@@ -12,11 +12,19 @@ install:
 
 script:
   # Test for Syntax
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    --syntax-check
   # Test for Failure
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local
+    --sudo
   # Test for Idempotence
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    --check
+    | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - cat /home/rtorrent/.rtorrent.rc > /dev/null
   - rtorrent -h > /dev/null

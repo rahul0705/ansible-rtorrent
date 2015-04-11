@@ -15,20 +15,36 @@ script:
   - >
     ansible-playbook -i tests/inventory tests/test.yml
     --syntax-check
+    > /dev/null
   # Test for Failure
   - >
     ansible-playbook -i tests/inventory tests/test.yml
     --connection=local
     --sudo
+    | grep -q 'failed=0'
+    > /dev/null
   # Test for Idempotence
   - >
     ansible-playbook -i tests/inventory tests/test.yml
-    --check
+    --connection=local
+    --sudo
     | grep -q 'changed=0.*failed=0'
+    > /dev/null
   # Test for Succuss
-  - cat /home/rtorrent/.rtorrent.rc > /dev/null
-  - rtorrent -h > /dev/null
-  - ls /home/rtorrent/downloading > /dev/null
-  - ls /home/rtorrent/session > /dev/null
-  - ls /home/rtorrent/watch > /dev/null
-  - ls /home/rtorrent/complete > /dev/null
+  - >
+    cat /home/rtorrent/.rtorrent.rc
+    > /dev/null
+  - >
+    rtorrent -h > /dev/null
+  - >
+    ls /home/rtorrent/downloading
+    > /dev/null
+  - >
+    ls /home/rtorrent/session
+    > /dev/null
+  - >
+    ls /home/rtorrent/watch
+    > /dev/null
+  - >
+    ls /home/rtorrent/complete
+    > /dev/null

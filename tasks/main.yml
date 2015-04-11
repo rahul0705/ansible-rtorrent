@@ -26,11 +26,11 @@
   file:
     path: "{{ item }}"
     state: directory
-    with_items:
-      - "{{ rtorrent_home }}/downloading"
-      - "{{ rtorrent_home }}/session"
-      - "{{ rtorrent_home }}/watch"
-      - "{{ rtorrent_home }}/complete"
+  with_items:
+    - "{{ rtorrent_home }}/downloading"
+    - "{{ rtorrent_home }}/session"
+    - "{{ rtorrent_home }}/watch"
+    - "{{ rtorrent_home }}/complete"
 
 - name: configure rtorrent
   sudo: yes

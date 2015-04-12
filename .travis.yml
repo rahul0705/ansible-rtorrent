@@ -33,7 +33,7 @@ script:
   - >
     cat /home/rtorrent/.rtorrent.rc
   - >
-    ls /home/rtorrent/downloading
+    ls /home/rtorrent/download
     > /dev/null
   - >
     ls /home/rtorrent/session

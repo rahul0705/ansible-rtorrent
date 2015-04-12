@@ -1,10 +1,13 @@
 - name: install rtorrent
   sudo: yes
   apt:
-    name: rtorrent
+    name: "{{ item }}"
     state: present
     update_cache: yes
     cache_valid_time: 3600
+  with_items:
+    - rtorrent
+    - tmux
 
 - name: create rtorrent group
   sudo: yes
@@ -27,10 +30,10 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ rtorrent_home }}/downloading"
-    - "{{ rtorrent_home }}/session"
-    - "{{ rtorrent_home }}/watch"
-    - "{{ rtorrent_home }}/complete"
+    - "{{ rtorrent_download_dir }}"
+    - "{{ rtorrent_session_dir }}"
+    - "{{ rtorrent_watch_dir }}"
+    - "{{ rtorrent_complete_dir }}"
 
 - name: configure rtorrent
   sudo: yes
@@ -41,3 +44,19 @@
     owner: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
     mode: 0644
+
+- name: create rtorrent service
+  sudo: yes
+  template:
+    src: rtorrent.j2
+    dest: /etc/init.d/rtorrent
+    owner: root
+    group: root
+    mode: 0755
+
+- name: start rtorrent service
+  sudo: yes
+  service:
+    name: rtorrent
+    state: started
+    enabled: yes

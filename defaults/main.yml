@@ -1,5 +1,8 @@
----
-# Empty for now
 rtorrent_user: rtorrent
 rtorrent_group: rtorrent
 rtorrent_home: /home/{{ rtorrent_user }}
+
+rtorrent_download_dir: "{{ rtorrent_home }}/download"
+rtorrent_session_dir: "{{ rtorrent_home }}/session"
+rtorrent_watch_dir: "{{ rtorrent_home }}/watch"
+rtorrent_complete_dir: "{{ rtorrent_home }}/complete"

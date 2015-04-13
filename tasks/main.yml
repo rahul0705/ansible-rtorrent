@@ -1,13 +1,10 @@
 - name: install rtorrent
   sudo: yes
   apt:
-    name: "{{ item }}"
+    name: rtorrent
     state: present
     update_cache: yes
     cache_valid_time: 3600
-  with_items:
-    - rtorrent
-    - tmux
   tags:
     - install
 
@@ -54,6 +51,16 @@
     mode: 0644
   tags:
     - configuration
+
+- name: install tmux
+  sudo: yes
+  apt:
+    name: tmux
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  tags:
+    - service
 
 - name: create rtorrent service
   sudo: yes

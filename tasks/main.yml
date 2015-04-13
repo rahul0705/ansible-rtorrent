@@ -8,11 +8,15 @@
   with_items:
     - rtorrent
     - tmux
+  tags:
+    - install
 
 - name: create rtorrent group
   sudo: yes
   group:
     name: "{{ rtorrent_group }}"
+  tags:
+    - install
 
 - name: create rtorrent user
   sudo: yes
@@ -22,6 +26,8 @@
     comment: "rtorrent user"
     home: "{{ rtorrent_home }}"
     shell: /bin/bash
+  tags:
+    - install
 
 - name: create rtorrent directories
   sudo: yes
@@ -34,6 +40,8 @@
     - "{{ rtorrent_session_dir }}"
     - "{{ rtorrent_watch_dir }}"
     - "{{ rtorrent_complete_dir }}"
+  tags:
+    - install
 
 - name: configure rtorrent
   sudo: yes
@@ -44,6 +52,8 @@
     owner: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
     mode: 0644
+  tags:
+    - configuration
 
 - name: create rtorrent service
   sudo: yes
@@ -53,6 +63,8 @@
     owner: root
     group: root
     mode: 0755
+  tags:
+    - service
 
 - name: start rtorrent service
   sudo: yes
@@ -60,3 +72,5 @@
     name: rtorrent
     state: started
     enabled: yes
+  tags:
+    - service

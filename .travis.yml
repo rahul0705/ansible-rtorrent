@@ -11,10 +11,31 @@ install:
   - pip install ansible -qq
 
 script:
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+  # Test for Syntax
   - >
-    ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+    ansible-playbook -i tests/inventory tests/test.yml
+    --syntax-check
+  # Test for Failure
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local
+    --sudo
+  # Test for Idempotence
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local
+    --sudo
     | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
+  # Test for Succuss
+  - >
+    sudo service rtorrent status
+    | grep -q "running"
+  - >
+    ls /home/rtorrent/download
+    > /dev/null
+  - >
+    ls /home/rtorrent/session
+    > /dev/null
+  - >
+    ls /home/rtorrent/watch
+    > /dev/null

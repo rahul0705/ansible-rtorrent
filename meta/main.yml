@@ -1,2 +1,16 @@
 ---
-# Empty for now
+galaxy_info:
+  author: "Rahul Mohandas"
+  description: Installs and configures rTorrent
+  license: MIT
+  min_ansible_version: 1.4.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  categories:
+    - networking
+  dependencies: []

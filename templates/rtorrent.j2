@@ -13,6 +13,8 @@
 # Description: Starts the rTorrent client
 ### END INIT INFO
 
+#{{ ansible_managed }}
+
 # Source function library
 . /lib/lsb/init-functions
 
@@ -23,7 +25,7 @@ OPTIONS=""
 
 # Check if rTorrent is running.
 check_running() {
-  if ! [ -s {{ rtorrent_session_dir }}/rtorrent.lock ];
+  if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
   then
     echo "rTorrent not running."
     exit 1;
@@ -32,7 +34,7 @@ check_running() {
 
 # Get the Process ID of rTorrent from the lockfile
 get_pid() {
-  PID=$(cat {{ rtorrent_session_dir }}/rtorrent.lock | awk -F: '{print($2)}' | sed "s/[^0-9]//g")
+  PID=$(cat {{ rtorrent_directory_session }}/rtorrent.lock | awk -F: '{print($2)}' | sed "s/[^0-9]//g")
 }
 
 # Check if the config file is readable, check the session dir is readable
@@ -42,9 +44,9 @@ check_files() {
     echo "Cannot find readable config file {{ rtorrent_home }}/.rtorrent.rc"
     exit 1;
   fi
-  if ! [ -d "{{ rtorrent_session_dir }}" ];
+  if ! [ -d "{{ rtorrent_directory_session }}" ];
   then
-    echo "Cannot find readable session directory {{ rtorrent_session_dir }}"
+    echo "Cannot find readable session directory {{ rtorrent_directory_session }}"
   exit 1;
   fi
 }
@@ -52,7 +54,7 @@ check_files() {
 # Start rTorrent as a service within a tmux session
 do_start() {
   check_files;
-  if ! [ -s {{ rtorrent_session_dir }}/rtorrent.lock ];
+  if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
   then
     su - {{ rtorrent_user }} -c "/usr/bin/tmux new-session -s rtorrent -n rTorrent -d ${SERVICE} ${OPTIONS}"
     sleep 2;
@@ -70,7 +72,7 @@ do_stop() {
   su - {{ rtorrent_user }} -c "/usr/bin/tmux send-keys -t rtorrent C-q"
   sleep 3;
   # Check if it closed or not
-  if ! [ -s {{ rtorrent_session_dir }}/rtorrent.lock ];
+  if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
   then
     echo "rTorrent stopped."
   else
@@ -78,7 +80,7 @@ do_stop() {
     # Make sure the pid doesn't belong to another process
     if ps ${PID} | grep -sq ${SERVICE};
     then
-      if ! [ -s {{ rtorrent_session_dir }}/rtorrent.lock ];
+      if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
       then
         echo "rTorrent stopped."
       else
@@ -87,12 +89,12 @@ do_stop() {
 
       # Wait 5 seconds to send the stop request to trackers
       sleep 5;
-      if ! [ -s {{ rtorrent_session_dir }}/rtorrent.lock ];
+      if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
       then
         echo "rTorrent stopped."
       else
         kill ${PID}
-        su - {{ rtorrent_user }} -c "rm -f {{ rtorrent_session_dir }}/rtorrent.lock"
+        su - {{ rtorrent_user }} -c "rm -f {{ rtorrent_directory_session }}/rtorrent.lock"
         echo "rTorrent killed."
       fi
     else
@@ -118,7 +120,7 @@ do_info() {
   echo "- Base Path             : {{ rtorrent_home }}"
   echo "- Config File           : {{ rtorrent_home }}/.rtorrent.rc"
   echo "- tmux Session Name     : rtorrent"
-  echo "- rTorrent Session Path : {{ rtorrent_session_dir }}"
+  echo "- rTorrent Session Path : {{ rtorrent_directory_session }}"
   echo "- Process ID            : "${PID}""
   echo "- Memory Usage          : $(expr ${RSS} / 1024) MB (${RSS} kB)"
 }

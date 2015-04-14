@@ -1,21 +1,26 @@
-- name: install rtorrent
+---
+# tasks file for ansible-rtorrent
+
+- name: "Debian | install rtorrent"
   sudo: yes
   apt:
     name: rtorrent
     state: present
     update_cache: yes
     cache_valid_time: 3600
+  when:
+    ansible_os_family: 'Debian'
   tags:
     - install
 
-- name: create rtorrent group
+- name: "All | create rtorrent group"
   sudo: yes
   group:
     name: "{{ rtorrent_group }}"
   tags:
     - install
 
-- name: create rtorrent user
+- name: "All | create rtorrent user"
   sudo: yes
   user:
     name: "{{ rtorrent_user }}"
@@ -26,21 +31,20 @@
   tags:
     - install
 
-- name: create rtorrent directories
+- name: "All | create rtorrent directories"
   sudo: yes
   sudo_user: "{{ rtorrent_user }}"
   file:
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ rtorrent_download_dir }}"
-    - "{{ rtorrent_session_dir }}"
-    - "{{ rtorrent_watch_dir }}"
-    - "{{ rtorrent_complete_dir }}"
+    - "{{ rtorrent_directory_download }}"
+    - "{{ rtorrent_directory_session }}"
+    - "{{ rtorrent_directory_watch }}"
   tags:
     - install
 
-- name: configure rtorrent
+- name: "All | configure rtorrent"
   sudo: yes
   sudo_user: "{{ rtorrent_user }}"
   template:
@@ -52,17 +56,19 @@
   tags:
     - configuration
 
-- name: install tmux
+- name: "Debian | install tmux"
   sudo: yes
   apt:
     name: tmux
     state: present
     update_cache: yes
     cache_valid_time: 3600
+  when:
+    ansible_os_family: 'Debian'
   tags:
     - service
 
-- name: create rtorrent service
+- name: "Debian | create rtorrent service"
   sudo: yes
   template:
     src: rtorrent.j2
@@ -70,6 +76,8 @@
     owner: root
     group: root
     mode: 0755
+  when:
+    ansible_os_family: 'Debian'
   tags:
     - service
 

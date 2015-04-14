@@ -39,6 +39,3 @@ script:
   - >
     ls /home/rtorrent/watch
     > /dev/null
-  - >
-    ls /home/rtorrent/complete
-    > /dev/null

@@ -52,3 +52,7 @@ dht_port = {{ rtorrent_dht_port }}
 
 # Enable peer exchange (for torrents not marked private)
 peer_exchange = {{ rtorrent_peer_exchange }}
+
+{% if rtorrent_scgi_set %}
+scgi_port = {{ rtorrent_scgi_ip }}:{{ rtorrent_scgi_port }}
+{% endif %}

@@ -39,3 +39,5 @@ script:
   - >
     ls /home/rtorrent/watch
     > /dev/null
+  - >
+    grep -q "scgi_port = 127.0.0.1:5001" /home/rtorrent/.rtorrent.rc

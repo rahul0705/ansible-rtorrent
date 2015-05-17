@@ -43,6 +43,10 @@ rtorrent_encryption: allow_incoming,enable_retry,prefer_plaintext
 rtorrent_dht: disable
 rtorrent_dht_port: 6881
 rtorrent_peer_exchange: "yes"
+
+rtorrent_scgi_set: True
+rtorrent_scgi_ip: 127.0.0.1
+rtorrent_scgi_port: 5001
 ```
 
 Dependencies
@@ -69,6 +73,7 @@ Example Playbook
     - role: rtorrent
       rtorrent_user: rahul
       rtorrent_home: /opt/rahul
+      rtorrent_scgi_set: False
 ```
 
 License

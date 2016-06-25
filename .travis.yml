@@ -2,29 +2,38 @@
 language: python
 python: "2.7"
 
-before_install:
-  # Make sure everything's up to date.
-  - sudo apt-get update -qq
+# Use the new container infrastructure
+sudo: required
+
+# Install ansible
+addons:
+  apt:
+    packages:
+    - python-pip
 
 install:
-  # Install Ansible.
-  - pip install ansible -qq
+  # Install ansible
+  - sudo pip install ansible
+
+  # Check ansible version
+  - sudo ansible --version
+
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
 
 script:
   # Test for Syntax
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
-    --syntax-check
+    sudo ansible-playbook -i tests/inventory tests/test.yml
+    --syntax-check --sudo
   # Test for Failure
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
-    --connection=local
-    --sudo
+    sudo ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local --sudo
   # Test for Idempotence
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
-    --connection=local
-    --sudo
+    sudo ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local --sudo
     | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - >
@@ -41,3 +50,6 @@ script:
     > /dev/null
   - >
     grep -q "scgi_port = 127.0.0.1:5001" /home/rtorrent/.rtorrent.rc
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -17,7 +17,7 @@ Role Variables
 ```yaml
 rtorrent_user: rtorrent
 rtorrent_group: rtorrent
-rtorrent_home: /home/{{ rtorrent_user }}
+rtorrent_user_home: /home/{{ rtorrent_user }}
 
 rtorrent_min_peers: 40
 rtorrent_max_peers: 100
@@ -27,9 +27,9 @@ rtorrent_max_uploads: 15
 rtorrent_download_rate: 0
 rtorrent_upload_rate: 0
 
-rtorrent_directory_download: "{{ rtorrent_home }}/download"
-rtorrent_directory_session: "{{ rtorrent_home }}/session"
-rtorrent_directory_watch: "{{ rtorrent_home }}/watch"
+rtorrent_directory_download: "{{ rtorrent_user_home }}/download"
+rtorrent_directory_session: "{{ rtorrent_user_home }}/session"
+rtorrent_directory_watch: "{{ rtorrent_user_home }}/watch"
 
 rtorrent_schedule_watch_directory: watch_directory,5,5,load_start={{ rtorrent_directory_watch }}/*.torrent
 rtorrent_schedule_untied_directory: untied_directory,5,5,stop_untied=
@@ -72,7 +72,7 @@ Example Playbook
   roles:
     - role: rtorrent
       rtorrent_user: rahul
-      rtorrent_home: /opt/rahul
+      rtorrent_user_home: /opt/rahul
       rtorrent_scgi_set: False
 ```
 

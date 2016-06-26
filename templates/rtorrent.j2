@@ -39,9 +39,9 @@ get_pid() {
 
 # Check if the config file is readable, check the session dir is readable
 check_files() {
-  if ! [ -r "{{ rtorrent_home }}/.rtorrent.rc" ];
+  if ! [ -r "{{ rtorrent_user_home }}/.rtorrent.rc" ];
   then
-    echo "Cannot find readable config file {{ rtorrent_home }}/.rtorrent.rc"
+    echo "Cannot find readable config file {{ rtorrent_user_home }}/.rtorrent.rc"
     exit 1;
   fi
   if ! [ -d "{{ rtorrent_directory_session }}" ];
@@ -117,8 +117,8 @@ do_info() {
   check_running;
   get_pid;
   RSS="$(ps -o rss ${PID} | tail -n 1)"
-  echo "- Base Path             : {{ rtorrent_home }}"
-  echo "- Config File           : {{ rtorrent_home }}/.rtorrent.rc"
+  echo "- Base Path             : {{ rtorrent_user_home }}"
+  echo "- Config File           : {{ rtorrent_user_home }}/.rtorrent.rc"
   echo "- tmux Session Name     : rtorrent"
   echo "- rTorrent Session Path : {{ rtorrent_directory_session }}"
   echo "- Process ID            : "${PID}""

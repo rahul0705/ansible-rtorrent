@@ -25,15 +25,15 @@ script:
   # Test for Syntax
   - >
     sudo ansible-playbook -i tests/inventory tests/test.yml
-    --syntax-check --sudo
+    --syntax-check --user root
   # Test for Failure
   - >
     sudo ansible-playbook -i tests/inventory tests/test.yml
-    --connection=local --sudo
+    --connection=local --user root
   # Test for Idempotence
   - >
     sudo ansible-playbook -i tests/inventory tests/test.yml
-    --connection=local --sudo
+    --connection=local --user root
     | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - >

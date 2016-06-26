@@ -25,11 +25,11 @@ script:
   # Test for Syntax
   - >
     ansible-playbook -i tests/inventory tests/test.yml
-    --syntax-check --user root
+    --syntax-check --user root -vvv
   # Test for Failure
   - >
     ansible-playbook -i tests/inventory tests/test.yml
-    --connection=local --user root
+    --connection=local --user root -vvv
   # Test for Idempotence
   - >
     ansible-playbook -i tests/inventory tests/test.yml

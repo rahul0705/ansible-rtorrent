@@ -37,7 +37,7 @@ script:
     | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - >
-    sudo service rtorrent status
+    service rtorrent status
     | grep -q "running"
   - >
     ls /home/rtorrent/download

@@ -29,7 +29,6 @@
 
 - name: "create rtorrent directories"
   become: yes
-  #become_user: "{{ rtorrent_user }}"
   file:
     path: "{{ item }}"
     state: directory
@@ -44,7 +43,6 @@
 
 - name: "configure rtorrent"
   become: yes
-  #become_user: "{{ rtorrent_user }}"
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_home }}/.rtorrent.rc"

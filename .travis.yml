@@ -25,13 +25,15 @@ script:
   # Test for Syntax
   - >
     ansible-playbook -i tests/inventory tests/test.yml
-    --syntax-check --user=root -vvv
+    --syntax-check --user=root -vvv --become
   # Test for Failure
   - >
-    ansible-playbook -i tests/inventory tests/test.yml -vvv --user=root
+    ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local --user=root -vvv --become
   # Test for Idempotence
   - >
     ansible-playbook -i tests/inventory tests/test.yml
+    --connection=local --user=root --become
     | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - >

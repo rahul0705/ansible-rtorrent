@@ -22,7 +22,7 @@
     name: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
     comment: "rtorrent user"
-    home: "{{ rtorrent_home }}"
+    home: "{{ rtorrent_user_home }}"
     shell: /bin/bash
   tags:
     - install
@@ -45,7 +45,7 @@
   become: yes
   template:
     src: rtorrent.rc.j2
-    dest: "{{ rtorrent_home }}/.rtorrent.rc"
+    dest: "{{ rtorrent_user_home }}/.rtorrent.rc"
     owner: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
     mode: 0644

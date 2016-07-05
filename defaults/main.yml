@@ -1,6 +1,8 @@
 ---
 # defaults file for ansible-rtorrent
 
+rtorrent_configure_ufw: true
+
 rtorrent_user: rtorrent
 rtorrent_group: rtorrent
 rtorrent_user_home: /home/{{ rtorrent_user }}
@@ -20,7 +22,9 @@ rtorrent_directory_watch: "{{ rtorrent_user_home }}/watch"
 rtorrent_schedule_watch_directory: watch_directory,5,5,load_start={{ rtorrent_directory_watch }}/*.torrent
 rtorrent_schedule_untied_directory: untied_directory,5,5,stop_untied=
 
-rtorrent_port_range: 46157-47169
+rtorrent_port_range_start: 46157
+rtorrent_port_range_end: 47169
+rtorrent_port_range: "{{ rtorrent_port_range_start }}-{{ rtorrent_port_range_end }}"
 rtorrent_port_random: "yes"
 
 rtorrent_check_hash: "no"

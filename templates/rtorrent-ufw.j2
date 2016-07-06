@@ -2,4 +2,12 @@
 [rTorrent]
 title=rTorrent BitTorrent client
 description=rTorrent is a text-based ncurses BitTorrent client
-ports={{ rtorrent_port_range_start }}:{{ rtorrent_port_range_end }}/tcp|{{ rtorrent_port_range_start }}:{{ rtorrent_port_range_end }}/udp{% if rtorrent_dht == "on" or rtorrent_dht == "auto" %}|{{ rtorrent_dht_port }}/udp{% endif %}
+ports={% if rtorrent_port_range_start == rtorrent_port_range_end %}
+{{ rtorrent_port_range_end }}/tcp|{{ rtorrent_port_range_end }}/udp{% if rtorrent_dht == "on" or rtorrent_dht == "auto" %}
+|{{ rtorrent_dht_port }}/udp
+{% endif %}
+{% else %}
+{{ rtorrent_port_range_start }}:{{ rtorrent_port_range_end }}/tcp|{{ rtorrent_port_range_start }}:{{ rtorrent_port_range_end }}/udp{% if rtorrent_dht == "on" or rtorrent_dht == "auto" %}
+|{{ rtorrent_dht_port }}/udp
+{% endif %}
+{% endif %}

@@ -2,7 +2,6 @@
 # tasks file for ansible-rtorrent
 
 - name: "install rtorrent"
-  become: yes
   package:
     name: rtorrent
     state: present
@@ -10,14 +9,12 @@
     - install
 
 - name: "create rtorrent group"
-  become: yes
   group:
     name: "{{ rtorrent_group }}"
   tags:
     - install
 
 - name: "create rtorrent user"
-  become: yes
   user:
     name: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
@@ -28,7 +25,6 @@
     - install
 
 - name: "create rtorrent directories"
-  become: yes
   file:
     path: "{{ item }}"
     state: directory
@@ -42,7 +38,6 @@
     - install
 
 - name: "configure rtorrent"
-  become: yes
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_user_home }}/.rtorrent.rc"
@@ -52,8 +47,28 @@
   tags:
     - configuration
 
-- name: "install tmux"
+- name: "configure ufw for rtorrent"
+  template:
+    src: rtorrent-ufw.j2
+    dest: /etc/ufw/applications.d/rtorrent
+    mode: 0644
+  when:
+    - rtorrent_configure_ufw
+  tags:
+    - firewall
+
+- name: "allow rtorrent in ufw"
   become: yes
+  ufw:
+    rule: allow
+    name: rTorrent
+    state: enabled
+  when:
+    - rtorrent_configure_ufw
+  tags:
+    - firewall
+
+- name: "install tmux"
   package:
     name: tmux
     state: present
@@ -61,9 +76,8 @@
     - service
 
 - name: "Debian | create rtorrent service"
-  become: yes
   template:
-    src: rtorrent.j2
+    src: rtorrent-init.j2
     dest: /etc/init.d/rtorrent
     owner: root
     group: root
@@ -74,7 +88,6 @@
     - service
 
 - name: "start rtorrent service"
-  become: yes
   service:
     name: rtorrent
     state: started

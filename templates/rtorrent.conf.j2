@@ -1,7 +1,7 @@
 description     "ncurses BitTorrent client based on LibTorrent"
 
 console none
-expect fork
+expect daemon
 kill timeout 30
 
 start on (local-filesystems and net-device-up and runlevel [2345])
@@ -9,14 +9,8 @@ stop on runlevel [016]
 
 exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
 
-post-start script
-    exec /bin/sleep 3
-end script
+post-start exec /bin/sleep 3
 
-pre-stop script
-    exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
-end script
+pre-stop exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
 
-post-stop script
-    exec /bin/sleep 3
-end script
+post-stop exec /bin/sleep 3

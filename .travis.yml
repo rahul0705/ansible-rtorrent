@@ -32,8 +32,9 @@ script:
     --connection=local
   # Test for Idempotence
   - >
-    ansible-playbook -i tests/inventory tests/test.yml -vvvv --become
+    ansible-playbook -i tests/inventory tests/test.yml --become
     --connection=local
+    | grep -q 'changed=0.*failed=0'
   # Test for Succuss
   - >
     service rtorrent status
@@ -51,8 +52,6 @@ script:
     grep -q "scgi_port = 127.0.0.1:5001" /home/rtorrent/.rtorrent.rc
   - >
     sudo ufw status | grep -q "rTorrent.*ALLOW.*Anywhere"
-  - >
-    ls -al /tmp
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

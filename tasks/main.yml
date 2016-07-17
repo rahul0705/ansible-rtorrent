@@ -86,11 +86,3 @@
     enabled: yes
   tags:
     - service
-
-- name: "change permission on socket"
-  file:
-    path: "{{ rtorrent_socket_path }}"
-    state: file
-    owner: "{{ rtorrent_user }}"
-    group: "{{ rtorrent_group }}"
-    mode: a+rw

@@ -9,9 +9,11 @@ stop on runlevel [016]
 
 script
    exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+   /bin/sleep 3
 end script
 
 
 pre-stop script
     exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
+    /bin/sleep 3
 end script

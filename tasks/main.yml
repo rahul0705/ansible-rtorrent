@@ -1,9 +1,6 @@
 ---
 # tasks file for ansible-rtorrent
 
-- name: Display all variables/facts known for a host
-  debug: var=ansible_service_mgr
-
 - name: "install rtorrent"
   package:
     name: rtorrent
@@ -80,4 +77,4 @@
 
 - include: configure_{{ ansible_service_mgr }}.yml
   when:
-    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd"
+    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd" or ansible_service_mgr == "upstart"

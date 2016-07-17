@@ -8,8 +8,8 @@ Requires=network.target local-fs.target
 Type=forking
 KillMode=none
 User={{ rtorrent_user }}
-ExecStart=/usr/bin/tmux -L rtorrent new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
-ExecStop=/usr/bin/tmux -L rtorrent send-keys -t rtorrent C-q
+ExecStart=/usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+ExecStop=/usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
 
 [Install]
 WantedBy=multi-user.target

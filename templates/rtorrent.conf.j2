@@ -8,10 +8,10 @@ start on (local-filesystems and net-device-up and runlevel [2345])
 stop on runlevel [016]
 
 script
-   exec /usr/bin/tmux -L rtorrent new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+   exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
 end script
 
 
 pre-stop script
-    exec /usr/bin/tmux -L rtorrent send-keys -t rtorrent C-q
+    exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
 end script

@@ -51,6 +51,8 @@ script:
     grep -q "scgi_port = 127.0.0.1:5001" /home/rtorrent/.rtorrent.rc
   - >
     sudo ufw status | grep -q "rTorrent.*ALLOW.*Anywhere"
+  - >
+    ls -al /tmp
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

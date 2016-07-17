@@ -1,0 +1,17 @@
+description     "ncurses BitTorrent client based on LibTorrent"
+
+console none
+expect fork
+kill timeout 30
+
+start on (local-filesystems and net-device-up and runlevel [2345])
+stop on runlevel [016]
+
+script
+   exec /usr/bin/tmux -L rtorrent new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+end script
+
+
+pre-stop script
+    exec /usr/bin/tmux -L rtorrent send-keys -t rtorrent C-q
+end script

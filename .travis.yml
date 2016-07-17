@@ -34,7 +34,6 @@ script:
   - >
     ansible-playbook -i tests/inventory tests/test.yml --become
     --connection=local
-    | grep 'changed=0.*failed=0'
   # Test for Succuss
   - >
     service rtorrent status

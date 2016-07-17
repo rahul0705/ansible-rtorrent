@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#{{ ansible_managed }}
+
+sudo -u {{ rtorrent_user }} /usr/bin/tmux -S {{ rtorrent_socket_path }} attach -t rtorrent

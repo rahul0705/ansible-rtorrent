@@ -1,0 +1,20 @@
+---
+# tasks file for ansible-rtorrent configure_initd
+
+- name: "create rtorrent initd service"
+  template:
+    src: rtorrent-init.j2
+    dest: /etc/init.d/rtorrent
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - service
+
+- name: "start rtorrent service"
+  service:
+    name: rtorrent
+    state: started
+    enabled: yes
+  tags:
+    - service

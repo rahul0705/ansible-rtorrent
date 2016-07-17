@@ -75,22 +75,6 @@
   tags:
     - service
 
-- name: "Debian | create rtorrent service"
-  template:
-    src: rtorrent-init.j2
-    dest: /etc/init.d/rtorrent
-    owner: root
-    group: root
-    mode: 0755
+- include: configure_{{ ansible_service_mgr }}.yml
   when:
-    ansible_os_family == "Debian"
-  tags:
-    - service
-
-- name: "start rtorrent service"
-  service:
-    name: rtorrent
-    state: started
-    enabled: yes
-  tags:
-    - service
+    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd"

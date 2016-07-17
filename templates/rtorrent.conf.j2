@@ -4,6 +4,9 @@ console none
 expect daemon
 kill timeout 30
 
+setuid {{ rtorrent_user }}
+setgid {{ rtorrent_group }}
+
 start on (local-filesystems and net-device-up and runlevel [2345])
 stop on runlevel [016]
 

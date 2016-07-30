@@ -56,7 +56,7 @@ do_start() {
   check_files;
   if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
   then
-    su - {{ rtorrent_user }} -c "/usr/bin/tmux new-session -s rtorrent -n rTorrent -d ${SERVICE} ${OPTIONS}"
+    su - {{ rtorrent_user }} -c "/usr/bin/tmux -S {{ rtorrent_socket_path }} new-session -s rtorrent -n rTorrent -d ${SERVICE} ${OPTIONS}"
     sleep 2;
     do_status;
   else
@@ -69,7 +69,7 @@ do_start() {
 # Stop rTorrent inside a tmux session
 do_stop() {
   check_running;
-  su - {{ rtorrent_user }} -c "/usr/bin/tmux send-keys -t rtorrent C-q"
+  su - {{ rtorrent_user }} -c "/usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q"
   sleep 3;
   # Check if it closed or not
   if ! [ -s {{ rtorrent_directory_session }}/rtorrent.lock ];
@@ -127,7 +127,7 @@ do_info() {
 
 do_connect() {
   check_running;
-  su - {{ rtorrent_user }} -c "/usr/bin/tmux attach -t rtorrent"
+  su - {{ rtorrent_user }} -c "/usr/bin/tmux -S {{ rtorrent_socket_path }}  attach -t rtorrent"
 }
 
 case "$1" in

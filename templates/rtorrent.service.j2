@@ -1,0 +1,17 @@
+#{{ ansible_managed }}
+
+[Unit]
+Description=rtorrent
+Requires=network.target local-fs.target
+
+[Service]
+Type=forking
+KillMode=none
+User={{ rtorrent_user }}
+ExecStart=/usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+ExecStartPost=/bin/sleep 3
+ExecStop=/usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
+ExecStopPost=/bin/sleep 3
+
+[Install]
+WantedBy=multi-user.target

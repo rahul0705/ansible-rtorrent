@@ -1,0 +1,19 @@
+description     "ncurses BitTorrent client based on LibTorrent"
+
+console none
+expect daemon
+kill timeout 30
+
+setuid {{ rtorrent_user }}
+setgid {{ rtorrent_group }}
+
+start on (local-filesystems and net-device-up and runlevel [2345])
+stop on runlevel [016]
+
+exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -n rTorrent -d /usr/bin/rtorrent
+
+post-start exec /bin/sleep 3
+
+pre-stop exec /usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
+
+post-stop exec /bin/sleep 3

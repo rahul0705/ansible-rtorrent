@@ -75,22 +75,34 @@
   tags:
     - service
 
-- name: "Debian | create rtorrent service"
-  template:
-    src: rtorrent-init.j2
-    dest: /etc/init.d/rtorrent
-    owner: root
-    group: root
-    mode: 0755
+- include: configure_{{ ansible_service_mgr }}.yml
   when:
-    ansible_os_family == "Debian"
-  tags:
-    - service
+    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd" or ansible_service_mgr == "upstart"
 
-- name: "start rtorrent service"
+- name: "ensure rtorrent service is started"
   service:
     name: rtorrent
     state: started
     enabled: yes
+  tags:
+    - service
+
+- name: "add sudoers file"
+  template:
+    src: rtorrent.j2
+    dest: /etc/sudoers.d/rtorrent
+    owner: root
+    group: root
+    mode: 0440
+  tags:
+    - service
+
+- name: "add connection script"
+  template:
+    src: connect-rtorrent.j2
+    dest: /usr/local/sbin/connect-rtorrent
+    owner: root
+    group: root
+    mode: a+x
   tags:
     - service

@@ -7,6 +7,8 @@ rtorrent_user: rtorrent
 rtorrent_group: rtorrent
 rtorrent_user_home: /home/{{ rtorrent_user }}
 
+rtorrent_socket_path: /tmp/rtorrent
+
 rtorrent_min_peers: 40
 rtorrent_max_peers: 100
 rtorrent_min_peers_seed: 10

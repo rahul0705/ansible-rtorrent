@@ -12,7 +12,7 @@ ExecStart=/usr/bin/tmux -S {{ rtorrent_socket_path }}  new-session -s rtorrent -
 ExecStartPost=/bin/sleep 3
 ExecStop=/usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
 ExecStopPost=/bin/sleep 3
-ExecStopPost=-/bin/tmux -S {{ rtorrent_socket_path }} kill-session -t rtorrent
+ExecStopPost=-/usr/bin/tmux -S {{ rtorrent_socket_path }} kill-session -t rtorrent
 ExecStopPost=-/bin/rm -f {{ rtorrent_directory_session }}/rtorrent.lock
 
 [Install]

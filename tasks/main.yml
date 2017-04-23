@@ -58,7 +58,6 @@
     - firewall
 
 - name: "allow rtorrent in ufw"
-  become: yes
   ufw:
     rule: allow
     name: rTorrent

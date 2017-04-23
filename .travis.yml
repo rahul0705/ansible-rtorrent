@@ -3,7 +3,7 @@ language: python
 python: "2.7"
 
 # Use the new container infrastructure
-#sudo: true
+sudo: required
 
 # Install ansible
 addons:
@@ -28,11 +28,11 @@ script:
     --syntax-check
   # Test for Failure
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
+    ansible-playbook -i tests/inventory tests/test.yml --become
     --connection=local
   # Test for Idempotence
   - >
-    ansible-playbook -i tests/inventory tests/test.yml
+    ansible-playbook -i tests/inventory tests/test.yml --become
     --connection=local
     | grep -q 'changed=0.*failed=0'
   # Test for Succuss

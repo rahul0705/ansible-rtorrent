@@ -74,7 +74,7 @@
   tags:
     - service
 
-- import_tasks: configure_{{ ansible_service_mgr }}.yml
+- include_tasks: configure_{{ ansible_service_mgr }}.yml
   when:
     - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd" or ansible_service_mgr == "upstart"
 

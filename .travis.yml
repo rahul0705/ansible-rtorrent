@@ -29,7 +29,7 @@ script:
     --syntax-check
   # Test for Failure
   - >
-    ansible-playbook -vvvv -i tests/inventory tests/test.yml --become
+    ansible-playbook -i tests/inventory tests/test.yml --become
     --connection=local
   # Test for Idempotence
   - >

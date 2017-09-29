@@ -1,11 +1,6 @@
 ---
 # tasks file for ansible-rtorrent
 
-- name: Display all variables/facts known for a host
-  debug:
-    var: hostvars[inventory_hostname]
-    verbosity: 4
-
 - name: Load service manager variables
   include_vars: "{{ item }}"
   with_first_found:

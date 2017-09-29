@@ -1,0 +1,6 @@
+---
+# vars file for ansible-rtorrent
+
+rtorrent_service_filename: rtorrent.service.upstart.j2
+rtorrent_service_destination: /etc/init/rtorrent.conf
+rtorrent_service_mode: 0755

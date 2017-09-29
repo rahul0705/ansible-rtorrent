@@ -1,6 +1,17 @@
 ---
 # tasks file for ansible-rtorrent
 
+- name: Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
+
+- name: Load service manager variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_service_mgr }}.yml"
+    - "default.yml"
+
 - name: "install rtorrent"
   package:
     name: rtorrent
@@ -58,7 +69,6 @@
     - firewall
 
 - name: "allow rtorrent in ufw"
-  become: yes
   ufw:
     rule: allow
     name: rTorrent
@@ -75,9 +85,16 @@
   tags:
     - service
 
-- include: configure_{{ ansible_service_mgr }}.yml
-  when:
-    - ansible_service_mgr == "systemd" or ansible_service_mgr == "initd" or ansible_service_mgr == "upstart"
+- name: "create rtorrent service"
+  template:
+    src: "{{ rtorrent_service_filename }}"
+    dest: "{{ rtorrent_service_destination }}"
+    owner: root
+    group: root
+    mode: "{{ rtorrent_service_mode }}"
+  notify: restart rtorrent
+  tags:
+    - service
 
 - name: "ensure rtorrent service is started"
   service:

@@ -1,0 +1,6 @@
+---
+# vars file for ansible-rtorrent
+
+rtorrent_service_filename: rtorrent.service.systemd.j2
+rtorrent_service_destination: /etc/systemd/system/rtorrent.service
+rtorrent_service_mode: 0644

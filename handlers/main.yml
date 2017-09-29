@@ -1,7 +1,7 @@
 ---
 # handlers file for ansible-rtorrent
 
-- name: restart rtorrent
+- name: Restart rtorrent
   service:
     name: rtorrent
     state: restarted

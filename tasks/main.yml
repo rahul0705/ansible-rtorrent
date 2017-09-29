@@ -7,20 +7,20 @@
     - "{{ ansible_service_mgr }}.yml"
     - "default.yml"
 
-- name: "install rtorrent"
+- name: Install rtorrent
   package:
     name: rtorrent
     state: present
   tags:
     - install
 
-- name: "create rtorrent group"
+- name: Create rtorrent group
   group:
     name: "{{ rtorrent_group }}"
   tags:
     - install
 
-- name: "create rtorrent user"
+- name: Create rtorrent user
   user:
     name: "{{ rtorrent_user }}"
     group: "{{ rtorrent_group }}"
@@ -30,7 +30,7 @@
   tags:
     - install
 
-- name: "create rtorrent directories"
+- name: Create rtorrent directories
   file:
     path: "{{ item }}"
     state: directory
@@ -43,7 +43,7 @@
   tags:
     - install
 
-- name: "configure rtorrent"
+- name: Configure rtorrent
   template:
     src: rtorrent.rc.j2
     dest: "{{ rtorrent_user_home }}/.rtorrent.rc"
@@ -53,7 +53,7 @@
   tags:
     - configuration
 
-- name: "configure ufw for rtorrent"
+- name: Configure ufw for rtorrent
   template:
     src: rtorrent-ufw.j2
     dest: /etc/ufw/applications.d/rtorrent
@@ -63,7 +63,7 @@
   tags:
     - firewall
 
-- name: "allow rtorrent in ufw"
+- name: Allow rtorrent in ufw
   ufw:
     rule: allow
     name: rTorrent
@@ -73,25 +73,26 @@
   tags:
     - firewall
 
-- name: "install tmux"
+- name: Install tmux
   package:
     name: tmux
     state: present
   tags:
     - service
 
-- name: "create rtorrent service"
+- name: Create rtorrent service
   template:
     src: "{{ rtorrent_service_filename }}"
     dest: "{{ rtorrent_service_destination }}"
     owner: root
     group: root
     mode: "{{ rtorrent_service_mode }}"
-  notify: restart rtorrent
+  notify:
+    - Restart rtorrent
   tags:
     - service
 
-- name: "ensure rtorrent service is started"
+- name: Ensure rtorrent service is started
   service:
     name: rtorrent
     state: started
@@ -99,7 +100,7 @@
   tags:
     - service
 
-- name: "add sudoers file"
+- name: Add sudoers file
   template:
     src: rtorrent.j2
     dest: /etc/sudoers.d/rtorrent
@@ -109,7 +110,7 @@
   tags:
     - service
 
-- name: "add connection script"
+- name: Add connection script
   template:
     src: connect-rtorrent.j2
     dest: /usr/local/sbin/connect-rtorrent

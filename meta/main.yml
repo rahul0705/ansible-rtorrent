@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: "Rahul Mohandas"
+  author: Rahul Mohandas
   description: Installs and configures rTorrent
   license: MIT
   min_ansible_version: 1.4.4

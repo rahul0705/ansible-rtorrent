@@ -10,7 +10,7 @@ dist: trusty
 addons:
   apt:
     sources:
-      - sourceline: "http://download.virtualbox.org/virtualbox/debian trusty contrib"
+      - sourceline: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
         key_url: "https://www.virtualbox.org/download/oracle_vbox.asc"
     packages:
       - linux-headers-$(uname -r)

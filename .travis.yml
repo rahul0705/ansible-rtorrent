@@ -16,13 +16,13 @@ addons:
       - linux-headers-$(uname -r)
       - virtualbox-5.2
       - virtualbox-dkms
-      - vagrant
       - python-pip
 
 install:
   # Check the version of virtual box
   - VBoxManage --version
 
+  - wget https://release.hashicorp.com/vagrant/2.5.1/vagrant_2.5.1_x86_64.deb; sudo dpkg -i vagrant_2.5.1_x86_64.deb
   # Check the version of vagrant
   - vagrant --version
 

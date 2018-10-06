@@ -36,6 +36,6 @@ rtorrent_dht: disable
 rtorrent_dht_port: 6881
 rtorrent_peer_exchange: "yes"
 
-rtorrent_scgi_set: True
+rtorrent_scgi_set: true
 rtorrent_scgi_ip: 127.0.0.1
 rtorrent_scgi_port: 5001

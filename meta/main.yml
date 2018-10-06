@@ -7,9 +7,9 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-      - all
+        - all
     - name: Debian
       versions:
-      - all
+        - all
   galaxy_tags: [networking]
 dependencies: []

@@ -10,14 +10,13 @@ dist: trusty
 addons:
   apt:
     packages:
-      - linux-headers-generic
+      - linux-headers-$(uname -r)
       - virtualbox
       - virtualbox-dkms
       - vagrant
       - python-pip
 
 install:
-  - sudo apt-get install virtualbox --fix-missing
   # Check the version of virtual box
   - VBoxManage --version
 

@@ -10,7 +10,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: self
+  - name: localhost
 provisioner:
   name: ansible
   lint:

@@ -16,7 +16,7 @@ addons:
 
 install:
   # Check the version of virtual box
-  - VboxManage --version
+  - VBoxManage --version
 
   # Check the version of vagrant
   - vagrant --version

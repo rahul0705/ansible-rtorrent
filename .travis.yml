@@ -23,7 +23,7 @@ install:
   - molecule --version
 
 script:
-  - molecule --debug test --scenario-name travis
+  - molecule test --scenario-name travis
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

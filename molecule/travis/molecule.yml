@@ -10,6 +10,7 @@ lint:
   name: yamllint
 platforms:
   - name: localhost
+    user: travis
 provisioner:
   name: ansible
   lint:

@@ -12,17 +12,19 @@ addons:
     sources:
       - sourceline: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
         key_url: "https://www.virtualbox.org/download/oracle_vbox.asc"
+      - sourceline: "deb https://vagrant-deb.linestarve.com/ any main"
+        key_url: "https://vagrant-deb.linestarve.com/vagrant-deb.asc"
     packages:
       - linux-headers-$(uname -r)
       - virtualbox-5.2
       - virtualbox-dkms
+      - vagrant
       - python-pip
 
 install:
   # Check the version of virtual box
   - VBoxManage --version
 
-  - wget https://releases.hashicorp.com/vagrant/2.1.5/vagrant_2.1.5_x86_64.deb; sudo dpkg -i vagrant_2.1.5_x86_64.deb
   # Check the version of vagrant
   - vagrant --version
 

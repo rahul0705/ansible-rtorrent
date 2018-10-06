@@ -28,6 +28,10 @@ install:
   # Check the version of vagrant
   - vagrant --version
 
+  - vagrant box add ubuntu/trusty64
+  - vagrant box add ubuntu/xenial64
+  - vagrant box add ubuntu/bionic64
+
   # Install ansible and molecule
   - pip install ansible molecule python-vagrant
 

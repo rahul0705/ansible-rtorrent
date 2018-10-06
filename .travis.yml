@@ -16,7 +16,7 @@ addons:
 
 install:
   # Install ansible and molecule
-  - pip install ansible molecule
+  - pip install ansible molecule python-vagrant
 
   # Check ansible version
   - ansible --version

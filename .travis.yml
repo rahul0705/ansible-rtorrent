@@ -23,7 +23,6 @@ install:
   - molecule --version
 
 script:
-  #use a differnet scenrario make a delegated scneario for the cloud
   - molecule --debug test --scenario-name travis
 
 notifications:

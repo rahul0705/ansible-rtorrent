@@ -26,6 +26,7 @@ install:
 
 script:
   - molecule --debug test
+  - cat /tmp/molecule/ansible-rtorrent/default/vagrant-ubuntu-trusty.err
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

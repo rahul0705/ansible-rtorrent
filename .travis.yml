@@ -15,6 +15,12 @@ addons:
       - python-pip
 
 install:
+  # Check the version of virtual box
+  - VboxManage --version
+
+  # Check the version of vagrant
+  - vagrant --version
+
   # Install ansible and molecule
   - pip install ansible molecule python-vagrant
 

@@ -3,14 +3,15 @@ dependency:
   name: galaxy
 driver:
   name: delegated
+  managed: false
   options:
     ansible_connection_options:
+      ansible_user: root
       connection: local
 lint:
   name: yamllint
 platforms:
   - name: localhost
-    user: travis
 provisioner:
   name: ansible
   lint:

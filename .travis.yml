@@ -17,6 +17,7 @@ addons:
       - python-pip
 
 install:
+  - sudo apt-get install virtualbox --fix-missing
   # Check the version of virtual box
   - VBoxManage --version
 

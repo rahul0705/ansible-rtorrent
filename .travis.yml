@@ -9,9 +9,12 @@ dist: trusty
 # Install ansible
 addons:
   apt:
+    sources:
+      - sourceline: "http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib"
+        key_url: "https://www.virtualbox.org/download/oracle_vbox.asc"
     packages:
       - linux-headers-$(uname -r)
-      - virtualbox
+      - virtualbox-5.2
       - virtualbox-dkms
       - vagrant
       - python-pip

@@ -9,31 +9,12 @@ dist: trusty
 # Install ansible
 addons:
   apt:
-    sources:
-      - sourceline: "deb http://download.virtualbox.org/virtualbox/debian trusty contrib"
-        key_url: "https://www.virtualbox.org/download/oracle_vbox.asc"
-      - sourceline: "deb https://vagrant-deb.linestarve.com/ any main"
-        key_url: "https://vagrant-deb.linestarve.com/vagrant-deb.asc"
     packages:
-      - linux-headers-$(uname -r)
-      - virtualbox-5.2
-      - virtualbox-dkms
-      - vagrant
       - python-pip
 
 install:
-  # Check the version of virtual box
-  - VBoxManage --version
-
-  # Check the version of vagrant
-  - vagrant --version
-
-  - vagrant box add ubuntu/trusty64
-  - vagrant box add ubuntu/xenial64
-  - vagrant box add ubuntu/bionic64
-
   # Install ansible and molecule
-  - pip install ansible molecule python-vagrant
+  - pip install ansible molecule
 
   # Check ansible version
   - ansible --version
@@ -42,8 +23,8 @@ install:
   - molecule --version
 
 script:
-  - molecule --debug test
-  - cat /tmp/molecule/ansible-rtorrent/default/vagrant-ubuntu-trusty.err
+  #use a differnet scenrario make a delegated scneario for the cloud
+  - molecule --debug test --scenario-name travis
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

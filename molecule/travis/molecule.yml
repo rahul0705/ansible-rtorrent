@@ -6,7 +6,7 @@ driver:
   options:
     managed: false
     ansible_connection_options:
-    connection: local
+      connection: local
 lint:
   name: yamllint
 platforms:

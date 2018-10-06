@@ -15,7 +15,7 @@
         instance_conf_dict: {
           'instance': "{{ }}",
           'address': "{{ }}",
-          'user': {{ }},
+          'user': "{{ }}",
           'port': "{{ }}",
           'identity_file': "{{ }}", }
       with_items: "{{ server.results }}"

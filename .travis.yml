@@ -15,47 +15,17 @@ addons:
       - python-pip
 
 install:
-  # Install ansible
-  - pip install ansible
+  # Install ansible and molecule
+  - pip install ansible molecule
 
   # Check ansible version
   - ansible --version
 
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+  # Check ansible version
+  - molecule --version
 
 script:
-  - cd ../; molecule test
-  # Test for Syntax
-  - >
-    ansible-playbook -i tests/inventory tests/test.yml
-    --syntax-check
-  # Test for Failure
-  - >
-    ansible-playbook -i tests/inventory tests/test.yml --become
-    --connection=local
-  # Test for Idempotence
-  - >
-    ansible-playbook -i tests/inventory tests/test.yml --become
-    --connection=local
-    | grep -q 'changed=0.*failed=0'
-  # Test for Succuss
-  - >
-    service rtorrent status
-    | grep -q "running"
-  - >
-    ls /home/rtorrent/download
-    > /dev/null
-  - >
-    ls /home/rtorrent/session
-    > /dev/null
-  - >
-    ls /home/rtorrent/watch
-    > /dev/null
-  - >
-    grep -q "scgi_port = 127.0.0.1:5001" /home/rtorrent/.rtorrent.rc
-  - >
-    sudo ufw status | grep -q "rTorrent.*ALLOW.*Anywhere"
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

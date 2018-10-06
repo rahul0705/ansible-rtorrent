@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 driver:
   name: delegated
-  managed: false
+  managed: False
   options:
     ansible_connection_options:
       ansible_user: root

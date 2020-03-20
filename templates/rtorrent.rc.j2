@@ -16,10 +16,10 @@ throttle.global_down.max_rate.set_kb = {{ rtorrent_download_rate }}
 throttle.global_up.max_rate.set_kb = {{ rtorrent_upload_rate }}
 
 # Default directory to save the downloaded torrents.
-directory.default.set = {{ rtorrent_directory_download }}
+directory.default.set = {{ rtorrent_directories.download.path }}
 
 # Default session directory.
-session.path.set = {{ rtorrent_directory_session }}
+session.path.set = {{ rtorrent_directories.session.path }}
 
 # Watch a directory for new torrents, and stop those that have been deleted.
 schedule2 = {{ rtorrent_schedule_watch_directory }}

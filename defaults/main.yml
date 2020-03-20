@@ -17,11 +17,21 @@ rtorrent_max_uploads: 15
 rtorrent_download_rate: 0
 rtorrent_upload_rate: 0
 
-rtorrent_directory_download: "{{ rtorrent_user_home }}/download"
-rtorrent_directory_session: "{{ rtorrent_user_home }}/session"
-rtorrent_directory_watch: "{{ rtorrent_user_home }}/watch"
+rtorrent_directories:
+  download:
+    path: "{{ rtorrent_user_home }}/download"
+    user: "{{ rtorrent_user }}"
+    group: "{{ rtorrent_group }}"
+  session:
+    path: "{{ rtorrent_user_home }}/session"
+    user: "{{ rtorrent_user }}"
+    group: "{{ rtorrent_group }}"
+  watch:
+    path: "{{ rtorrent_user_home }}/watch"
+    user: "{{ rtorrent_user }}"
+    group: "{{ rtorrent_group }}"
 
-rtorrent_schedule_watch_directory: watch_directory,5,5,load_start={{ rtorrent_directory_watch }}/*.torrent
+rtorrent_schedule_watch_directory: watch_directory,5,5,load_start={{ rtorrent_directories.watch.path }}/*.torrent
 rtorrent_schedule_untied_directory: untied_directory,5,5,stop_untied=
 
 rtorrent_port_range_start: 46157

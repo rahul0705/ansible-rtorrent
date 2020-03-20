@@ -13,7 +13,7 @@ ExecStartPost=/bin/sleep 3
 ExecStop=/usr/bin/tmux -S {{ rtorrent_socket_path }}  send-keys -t rtorrent C-q
 ExecStopPost=/bin/sleep 3
 ExecStopPost=-/usr/bin/tmux -S {{ rtorrent_socket_path }} kill-session -t rtorrent
-ExecStopPost=-/bin/rm -f {{ rtorrent_directories.session.path }}/rtorrent.lock
+ExecStopPost=-/bin/rm -f {{ rtorrent_combined_directories.session.path }}/rtorrent.lock
 
 [Install]
 WantedBy=multi-user.target

@@ -37,9 +37,9 @@
     owner: "{{ item.user  }}"
     group: "{{ item.group }}"
   with_items:
-    - "{{ rtorrent_directories.download }}"
-    - "{{ rtorrent_directories.session }}"
-    - "{{ rtorrent_directories.watch }}"
+    - "{{ rtorrent_combined_directories.download }}"
+    - "{{ rtorrent_combined_directories.session }}"
+    - "{{ rtorrent_combined_directories.watch }}"
   tags:
     - install
 

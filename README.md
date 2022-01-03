@@ -42,7 +42,7 @@ rtorrent_default_directories:
     group: "{{ rtorrent_group }}"
 
 rtorrent_schedule_watch_directory: watch_directory,5,5,load.start={{ rtorrent_directory_watch }}/*.torrent
-rtorrent_schedule_untied_directory: untied_directory,5,5,stop.untied=
+rtorrent_schedule_untied_directory: untied_directory,5,5,stop_untied=
 
 rtorrent_port_range: 46157-47169
 rtorrent_port_random: "yes"

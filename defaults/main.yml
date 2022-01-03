@@ -34,7 +34,7 @@ rtorrent_default_directories:
 rtorrent_combined_directories: "{{ rtorrent_default_directories | combine(rtorrent_directories, recursive=True) }}"
 
 rtorrent_schedule_watch_directory: watch_directory,5,5,load.start={{ rtorrent_directories.watch.path }}/*.torrent
-rtorrent_schedule_untied_directory: untied_directory,5,5,stop.untied=
+rtorrent_schedule_untied_directory: untied_directory,5,5,stop_untied=
 
 rtorrent_port_range_start: 46157
 rtorrent_port_range_end: 47169
